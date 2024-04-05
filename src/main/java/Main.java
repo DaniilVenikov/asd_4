@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 public class Main {
     public static void main(String[] args) {
         Stack<Character> expression = new Stack<>();
@@ -11,5 +13,7 @@ public class Main {
         expression.push('8');
         System.out.println(AdvancedFeatures.postfixRecordExpression(expression));
 
+        String c = "((())";
+        System.out.println(AdvancedFeatures.checkBalanceBrackets(c));
     }
 }

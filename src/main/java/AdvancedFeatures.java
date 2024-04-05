@@ -1,14 +1,21 @@
+import java.util.Stack;
+
 public class AdvancedFeatures {
 
-//    public static boolean checkBalanceBrackets(String brackets) {
-//        Stack<Character> stack = new Stack<>();
-//        if (brackets.toCharArray().length % 2 == 0) {
-//            return false;
-//        }
-//
-//
-//    }
+    public static boolean checkBalanceBrackets(String brackets) {
+        Stack<Character> stack = new Stack<>();
 
+        for (char bracket : brackets.toCharArray()) {
+            if (bracket == '(') {
+                stack.push(bracket);
+            } else if (bracket == ')') {
+                if (stack.isEmpty() || stack.pop() != '(') {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
 
     public static int postfixRecordExpression(Stack<Character> expression) {
         Stack<Integer> numberStack = new Stack<>();
