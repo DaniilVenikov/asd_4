@@ -11,9 +11,8 @@ public class AdvancedFeatures {
                 case ')' -> {
                     if (stack.isEmpty()) {
                         return false;
-                    } else {
-                        stack.pop();
                     }
+                    stack.pop();
                 }
             }
         }
