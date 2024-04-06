@@ -6,11 +6,14 @@ public class AdvancedFeatures {
         Stack<Character> stack = new Stack<>();
 
         for (char bracket : brackets.toCharArray()) {
-            if (bracket == '(') {
-                stack.push(bracket);
-            } else if (bracket == ')') {
-                if (stack.isEmpty() || stack.pop() != '(') {
-                    return false;
+            switch (bracket) {
+                case '(' -> stack.push(bracket);
+                case ')' -> {
+                    if (stack.isEmpty()) {
+                        return false;
+                    } else if (stack.pop() != '(') {
+                        return false;
+                    }
                 }
             }
         }
@@ -24,24 +27,34 @@ public class AdvancedFeatures {
             Character ch = expression.pop();
             if (Character.isDigit(ch)) {
                 numberStack.push(Character.getNumericValue(ch));
+            } else if (ch == '=') {
+                return numberStack.pop();
             } else {
-                switch (ch) {
-                    case '+' -> {
-                        int firstNumber = numberStack.pop();
-                        int secondNumber = numberStack.pop();
-                        numberStack.push(firstNumber + secondNumber);
-                    }
-                    case '*' -> {
-                        int firstNumber = numberStack.pop();
-                        int secondNumber = numberStack.pop();
-                        numberStack.push(firstNumber * secondNumber);
-                    }
-                    case '=' -> {
-                        return numberStack.pop();
-                    }
-                }
+                int firstNumber = numberStack.pop();
+                int secondNumber = numberStack.pop();
+                int result = operation(firstNumber, secondNumber, ch);
+                numberStack.push(result);
             }
+
         }
         return numberStack.pop();
+    }
+
+    private static int operation(int firstNumber, int secondNumber, Character ch) {
+        switch (ch) {
+            case '+' -> {
+                return firstNumber + secondNumber;
+            }
+            case '*' -> {
+                return firstNumber * secondNumber;
+            }
+            case '-' -> {
+                return firstNumber - secondNumber;
+            }
+            case '/' -> {
+                return firstNumber / secondNumber;
+            }
+            default -> throw new IllegalArgumentException("Unknown operation");
+        }
     }
 }
